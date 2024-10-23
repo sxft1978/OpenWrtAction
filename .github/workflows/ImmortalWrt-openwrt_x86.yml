@@ -20,7 +20,7 @@ on:
     branches:
       - main
     paths:
-      - '.github/workflows/build-ImmortalWrt-cr6609.yml'
+      - '.github/workflows/ImmortalWrt-openwrt_x86.yml'
       - 'config/immortalwrt_config/X86.config'
       
 env:
