@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 # https://github.com/liwenjie119/Actions-OpenWrt
 
-name:ImmortalWrt-mmortalwrt
+name:ImmortalWrt-openwrt
 
 on:
   repository_dispatch:
