@@ -162,10 +162,10 @@ jobs:
       run: cd openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
-      run: cd openwrt
+      run: cd openwrt && ./scripts/feeds install -a&&./scripts/feeds install -a
+      
     - name: Load custom configuration
-      run: |
-        mv ./config/immortalwrt_config/x86.config  openwrt/.config
+      run: |mv ./config/immortalwrt_config/x86.config  openwrt/.config
         chmod +x $DIY_P1_SH
         cd openwrt
               
