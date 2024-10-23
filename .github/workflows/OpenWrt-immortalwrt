@@ -15,13 +15,7 @@ name: Build OpenWrt-immortalwrt
 on:
     repository_dispatch:
     workflow_dispatch:
-    watch:
-    types: started
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/OpenWrt-immortalwrt.yml'
+    
       
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
