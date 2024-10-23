@@ -165,7 +165,7 @@ jobs:
       run: cd openwrt
     - name: Load custom configuration
       run: |
-        mv config/immortalwrt_config/x86.config  openwrt/.config
+        mv ./config/immortalwrt_config/x86.config  openwrt/.config
         chmod +x $DIY_P1_SH
         cd openwrt
               
