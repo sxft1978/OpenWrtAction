@@ -13,19 +13,7 @@
 name: Build OpenWrt-immortalwrt
 
 on:
-  repository_dispatch:
-  workflow_dispatch:
-    inputs:
-      devices:
-        description: '["x86_64j","x86_64f"]'
-        default: '["x86_64j"]'
-      clean:
-        description: 'clean ccache'
-        default: 'false'
-        
-# schedule:
-#    - cron: 0 8 * * 3,5
-  watch:
+    watch:
     types: started
   push:
     branches:
@@ -37,6 +25,7 @@ env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: master
   FEEDS_CONF: feeds_config/immortalwrt.feeds.conf.default
+  CONFIG_FILE: config/immortalwrt_config/x86.config 
   DIY_P1_SH: platform_immortalwrt.sh
 #  DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
