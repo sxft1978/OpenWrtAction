@@ -8,33 +8,20 @@
 # Description: Build OpenWrt using GitHub Actions
 # https://github.com/liwenjie119/Actions-OpenWrt
 
-name:ImmortalWrt-openwrt
+name: ImmortalWrt-openwrt_x86
 
 on:
   repository_dispatch:
   workflow_dispatch:
-    inputs:
-      #ssh:
-      #  description: 'SSH connection to Actions'
-      #  required: false
-      #  default: 'false'
-      devices:
-        description: 'build devices'
-        default: '["x86"]'
-      clean:
-        description: 'clean ccache'
-        default: 'false'
-        
-  schedule:
-    - cron: 0 8 * * 3,5
+    
   watch:
     types: started
   push:
     branches:
       - main
     paths:
-      - '.github/workflows/build-ImmortalWrt-mmortalwrt.yml'
-      - 'x86.config'
+      - '.github/workflows/build-ImmortalWrt-cr6609.yml'
+      - 'config/immortalwrt_config/X86.config'
       
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
@@ -58,7 +45,7 @@ jobs:
           MATRIX: ${{github.event.inputs.devices}}
         run: |
           if [ -z $MATRIX ]; then
-            MATRIX='["x86"]'
+            MATRIX='["cr660x"]'
           fi
           echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
     outputs:
@@ -126,7 +113,8 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        [ -e files ] && mv ./config/immortalwrt_config/X86.config openwrt/ .config
+        [ -e files ] && mv files openwrt/files
+        [ -e ${{matrix.device}}.config ] && mv ${{matrix.device}}.config openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
