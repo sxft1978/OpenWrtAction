@@ -13,10 +13,28 @@
 name: Build OpenWrt-immortalwrt
 
 on:
-    repository_dispatch:
-    workflow_dispatch:
-    
-      
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      #ssh:
+      #  description: 'SSH connection to Actions'
+      #  required: false
+      #  default: 'false'
+      devices:
+        
+      clean:
+        description: 'clean ccache'
+        default: 'false'
+        
+  schedule:
+    - cron: 0 8 * * 3,5
+  watch:
+    types: started
+  push:
+    branches:
+      - main
+    paths:
+          
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: master
