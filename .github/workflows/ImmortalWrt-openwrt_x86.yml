@@ -90,8 +90,7 @@ jobs:
         echo "=============================================================================="  
     
    
-   - name: Checkout
-      uses: actions/checkout@main
+   
       
     - name: Initialization environment
       env:
