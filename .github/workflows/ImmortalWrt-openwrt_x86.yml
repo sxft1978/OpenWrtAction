@@ -49,8 +49,6 @@ jobs:
         echo -e "$(sudo lshw -short -C memory | grep GiB) \n"
         echo "--------------------------硬盘信息--------------------------"
         echo "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l)" && df -hT
-
-
   
     - name: "Optimize Disk Space"
       uses: "hugoalh/disk-space-optimizer-ghaction@v0.8.0"
@@ -89,12 +87,12 @@ jobs:
         echo "Free up disk space complete"
         echo "=============================================================================="
         df -hT
-        echo "=============================================================================="
-    
+        echo "=============================================================================="  
     
    
-- name: Checkout
-      uses: actions/checkout@main 
+   - name: Checkout
+      uses: actions/checkout@main
+      
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
