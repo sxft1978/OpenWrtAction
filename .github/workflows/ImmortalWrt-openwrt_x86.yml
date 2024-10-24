@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 # https://github.com/liwenjie119/Actions-OpenWrt
 
-name: Build ImmortalWrt-cr6609
+name: Build ImmortalWrt-openwrt_x86
 
 on:
   repository_dispatch:
@@ -20,7 +20,7 @@ on:
       #  default: 'false'
       devices:
         description: 'build devices'
-        default: '["cr660x"]'
+        default: '["x86"]'
       clean:
         description: 'clean ccache'
         default: 'false'
@@ -39,9 +39,9 @@ on:
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: master
-  FEEDS_CONF: 
-  DIY_P1_SH: diy-360-t7-108M.sh
-  DIY_P2_SH: diy-part2.sh
+  FEEDS_CONF: feeds_config/immortalwrt.feeds.conf.default
+  DIY_P1_SH: diy_script/immortalwrt_diy/diy-part1.sh
+  DIY_P2_SH: diy_script/immortalwrt_diy/diy-part2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
