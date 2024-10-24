@@ -51,19 +51,7 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         
-    - name: Install Packages
-        run: |
-          sudo -E apt-get -qq update    
-          sudo -E apt-get -qq install $(curl -fsSL https://github.com/smallprogram/OpenWrtAction/raw/main/diy_script/immortalwrt_dependence)
-          df -hT
-          sudo mkdir -p openwrt
-          sudo mkdir -p download
-          sudo chown -R $USER:$GROUPS /workdir/openwrt
-          sudo chown -R $USER:$GROUPS /workdir/download
-  
-          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-          ln -sf /workdir/download $GITHUB_WORKSPACE/download
-
+    
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
