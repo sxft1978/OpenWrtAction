@@ -93,7 +93,6 @@ jobs:
       - name: Load Custom Feeds
         run: |
              [ -e $FEEDS_CONF ] && cp -r feeds_config/immortalwrt.feeds.conf.default openwrt/feeds.conf.default
-             [ -e $FEEDS_CONF ] && cp -r feeds_config/immortalwrt.feeds.conf.default openwrt/feeds.conf.default
              chmod +x diy_script/immortalwrt_diy/diy-part1.sh
              cd openwrt
              $GITHUB_WORKSPACE/diy_script/immortalwrt_diy/diy-part1.sh
@@ -111,11 +110,10 @@ jobs:
 
       - name: Load Configuration
         run: |
-          cp -r config/immortalwrt_config/X86.config openwrt/.config
-          chmod +x diy_script/immortalwrt_diy/diy-part2.sh
+          [ -e config/immortalwrt_config/X86.config ] && cp -r config/immortalwrt_config/X86.config openwrt/.config
           cd openwrt
-          $GITHUB_WORKSPACE/diy_script/immortalwrt_diy/diy-part2.sh
           make defconfig
+          # $GITHUB_WORKSPACE/$COPY_BACKGROUNDFILES_SH "" "X86" 
 
       - name: Download Package
         id: package
