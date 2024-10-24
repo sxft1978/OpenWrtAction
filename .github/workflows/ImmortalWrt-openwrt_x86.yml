@@ -66,6 +66,15 @@ jobs:
            build-mount-path-ownership: runner:runner
            pv-loop-path: /pv.img
            tmp-pv-loop-path: /mnt/tmp-pv.img
+        echo "Memory and swap:"
+        sudo free
+        echo
+        sudo swapon --show
+        echo
+  
+        echo "Available storage:"
+        sudo df -h
+        echo
 
       - name: Checkout
         uses: actions/checkout@v4
