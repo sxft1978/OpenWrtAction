@@ -36,14 +36,10 @@ jobs:
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown -R $USER:$GROUPS /workdir
-          df -hT
-
-               
+          df -hT        
         
   
-      - name: Checkout
-        uses: actions/checkout@v4with:
-          fetch-depth: 0
+      
           
         
       - name: Clone Source Code
