@@ -161,13 +161,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
-    - name: Generate tools toolchain
-        id: compile_tools_toolchain
-        run: |
-          cd $GITHUB_WORKSPACE/openwrt
-          make tools/compile -j$(nproc)
-          make toolchain/compile -j$(nproc) 
-
+    
     - name: Compile the firmware
       id: compile
       run: |
