@@ -23,9 +23,8 @@ env:
   TZ: Asia/Shanghai
 
 jobs:
- job_build:
+ build:
     runs-on: ubuntu-22.04
-    name: build
     steps:
       - name: Initialization Environment
         run: |
