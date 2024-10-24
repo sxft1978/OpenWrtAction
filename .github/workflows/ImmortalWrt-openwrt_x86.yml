@@ -119,12 +119,7 @@ jobs:
           echo "----------------------------------------------------------------"
           make package/feeds/packages/ruby/{clean,compile}
           cd $GITHUB_WORKSPACE
-      - name: Generate Frimware
-        id: compile
-        run: |
-          cd openwrt
-
-          make package/feeds/packages/ruby/{clean,compile} V=s
+      
      - name: Check space usage
       if: (!cancelled())
       run: df -hT
