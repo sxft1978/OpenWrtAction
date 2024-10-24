@@ -66,16 +66,7 @@ jobs:
            build-mount-path-ownership: runner:runner
            pv-loop-path: /pv.img
            tmp-pv-loop-path: /mnt/tmp-pv.img
-        echo "Memory and swap:"
-        sudo free
-        echo
-        sudo swapon --show
-        echo
-  
-        echo "Available storage:"
-        sudo df -h
-        echo
-
+       
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -139,48 +130,11 @@ jobs:
         id: compile_tools_toolchain
         run: |
           cd openwrt
-          is_complie_error=0
-          if [[ "" == "true" ]]; then
-          if [[ "" == "true" ]]; then
-        echo "1 threads compile tools"
-        make tools/compile -j1 V=s
+          make tools/compile -j1 V=s
         make toolchain/compile -j1 V=s
         make package/cleanup -j1 V=s
         make target/compile -j1 V=s
-        is_complie_error=${PIPESTATUS[0]}
-    else
-        echo "$(nproc) threads compile tools"
-        make tools/compile -j$(nproc) V=s
-        make toolchain/compile -j$(nproc) V=s
-        make package/cleanup -j$(nproc) V=s
-        make target/compile -j$(nproc) V=s
-        is_complie_error=${PIPESTATUS[0]}
-    fi
-  else
-    if [[ "" == "true" ]]; then
-        echo "1 threads compile tools"
-        make tools/compile -j1
-        make toolchain/compile -j1
-        make package/cleanup -j1
-        make target/compile -j1
-        is_complie_error=${PIPESTATUS[0]}
-    else
-        echo "$(nproc) threads compile tools"
-        make tools/compile -j$(nproc)
-        make toolchain/compile -j$(nproc)
-        make package/cleanup -j$(nproc)
-        make target/compile -j$(nproc)
-        is_complie_error=${PIPESTATUS[0]}
-    fi
-  fi
-  echo "complie result： $is_complie_error"
-  if [ "$is_complie_error" -eq 0 ]; then
-    echo "status=success" >> $GITHUB_OUTPUT
-  else
-    echo "status=failure" >> $GITHUB_OUTPUT
-    exit $is_complie_error
-  fi
-  df -hT    
+        
 
       - name: Generate Frimware ruby
         id: compile_ruby
@@ -196,43 +150,9 @@ jobs:
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bincd openwrt
-  is_complie_error=0
-  
-  if [[ "" == "true" ]]; then
-    if [[ "" == "true" ]]; then
-        echo "1 threads compile frimware"
-        make -j1 V=s
-        is_complie_error=${PIPESTATUS[0]}
-    else
-        echo "$(nproc) threads compile frimware"
-        make -j$(nproc) V=s
-        is_complie_error=${PIPESTATUS[0]}
-    fi
-  else
-    if [[ "" == "true" ]]; then
-        echo "1 threads compile frimware"
-        make -j1
-        is_complie_error=${PIPESTATUS[0]}
-    else
-        echo "$(nproc) threads compile frimware"
-        make -j$(nproc)
-        is_complie_error=${PIPESTATUS[0]}
-    fi
-  fi
-  
-  
-  
-  
-  echo "complie result： $is_complie_error"
-  if [ "$is_complie_error" -eq 0 ]; then
-    echo "status=success" >> $GITHUB_OUTPUT
-  else
-    echo "status=failure" >> $GITHUB_OUTPUT
-    exit $is_complie_error
-  fi
-  
-  df -hT
+        path: openwrt/bincd openwrt 
+        make -j1 V=s       
+       df -hT
 
     - name: Organize files
       id: organize
