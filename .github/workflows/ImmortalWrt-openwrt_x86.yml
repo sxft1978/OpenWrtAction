@@ -48,11 +48,11 @@ jobs:
           df -hT
           sudo mkdir -p openwrt
           sudo mkdir -p download
-          sudo chown -R $USER:$GROUPS /workdir/openwrt
-          sudo chown -R $USER:$GROUPS /workdir/download
+          sudo chown -R $USER:$GROUPS /openwrt
+          sudo chown -R $USER:$GROUPS /download
   
-          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-          ln -sf /workdir/download $GITHUB_WORKSPACE/download
+          ln -sf /openwrt $GITHUB_WORKSPACE/openwrt
+          ln -sf /download $GITHUB_WORKSPACE/download
           
     - name: Clone source code
       working-directory: /workdir
