@@ -75,19 +75,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-    repository: sxft1978/OpenWrtAction
-    token: ***
-    ssh-strict: true
-    ssh-user: git
-    persist-credentials: true
-    clean: true
-    sparse-checkout-cone-mode: true
-    fetch-tags: false
-    show-progress: true
-    lfs: false
-    submodules: false
-    set-safe-directory: true
-
+    
       - name: Install Packages
         env:
           DEBIAN_FRONTEND: noninteractive
