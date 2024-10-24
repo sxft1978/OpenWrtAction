@@ -31,7 +31,6 @@ jobs:
  job_build:
     runs-on: ubuntu-22.04
     name: build
-
     steps:    
     - name: Check Server Performance
       run: |
