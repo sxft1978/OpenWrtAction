@@ -34,7 +34,7 @@ env:
   GENERATE_GIT_LOG_SH: compile_script/step03_generate_git_log.sh
   UPDATE_GIT_LOG_SH:  compile_script/step06_update_git_log.sh
   ORGANIZE_TAG_SH: compile_script/step07_organize_tag.sh
-  FEEDS_CONF: 
+  FEEDS_CONF: feeds_config/immortalwrt.feeds.conf.default
   DIY_P1_SH: diy_script/immortalwrt_diy/diy-part1.sh 
   DIY_P2_SH: diy_script/immortalwrt_diy/diy-part1.sh
 
