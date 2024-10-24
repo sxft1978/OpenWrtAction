@@ -11,36 +11,18 @@
 name: ImmortalWrt-openwrt_x86
 
 on:
+  repository_dispatch:
   workflow_dispatch:
-    inputs:
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
-      is_display_detailed:
-        description: 'Whether to display detailed information about compilation'
-        required: false
-        default: 'false'
-      is_single_threaded:
-        description: 'Whether single-threaded compilation'
-        required: false
-        default: 'false'
-  # schedule:
-  #   - cron: 0 */8 * * *
 
 env:
-  MAKE_DEFCONFIG_SH: compile_script/step01_make_defconfig.sh
-  GENERATE_RELEASE_TAG_SH: compile_script/step02_generate_release_tag.sh
-  GENERATE_GIT_LOG_SH: compile_script/step03_generate_git_log.sh
-  UPDATE_GIT_LOG_SH:  compile_script/step06_update_git_log.sh
-  ORGANIZE_TAG_SH: compile_script/step07_organize_tag.sh
-
-
-  PLATFORMS_SH: compile_script/platforms.sh
-
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: .config
+  DIY_P1_SH: diy-part1.sh
+  DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
-  UPLOAD_ARTIFACT: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
