@@ -10,14 +10,14 @@
 # See /LICENSE for more information.
 #
 
-name: OpenWrt Builder
+name: ImmortalWrt-openwrt_x86
 
 on:
   repository_dispatch:
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
