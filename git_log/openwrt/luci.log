@@ -2,11 +2,7 @@
 
 SHA|Author|Date|Message
 -|-|-|-
-fb8ce8fcca|Paul Donald|Thu Oct 24 00:10:42 2024 +0200|luci-app-package-manager: i18n refresh
-bcd13b918e|Christian Marangi|Wed Oct 23 01:29:10 2024 +0200|luci-app-package-manager: rename from luci-app-opkg and add APK support
-591911d172|Christian Marangi|Wed Oct 23 22:33:05 2024 +0200|luci-base: add APK as detectable feature
-3a8e9baf32|Christian Marangi|Wed Oct 23 00:21:35 2024 +0200|luci-app-opkg: fix passing wrong option on opkg update/install
-55e08bedf2|Paul Donald|Wed Oct 23 22:29:09 2024 +0200|luci-app-example: spell fix
-7acea81873|this-username-has-been-taken|Wed Oct 23 13:15:33 2024 +0300|luci-proto-wireguard: fixed bug with incorrect peer name detection
-13007611a3|Paul Donald|Wed Oct 23 22:19:49 2024 +0200|luci-app-firewall: follow-up fix to reuse previous i18n strings
+345f6b8796|hnyyghk|Thu Oct 24 19:05:01 2024 +0800|luci-app-package-manager: add PKG_PROVIDES luci-app-opkg
+0535c07460|hnyyghk|Thu Oct 24 13:12:15 2024 +0800|luci-nginx: rename luci-app-opkg to luci-app-package-manager
+4d75286519|James Haggerty|Thu Oct 24 12:17:21 2024 +1100|luci-app-statistics: render all graphs on refresh if no summary
 </details>
