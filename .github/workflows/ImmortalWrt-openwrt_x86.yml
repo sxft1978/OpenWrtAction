@@ -37,11 +37,22 @@ jobs:
           df -hT
 
       - name: Maximize Build Space
-        uses: easimon/maximize-build-space@master
+        uses: easimon/maximize-build-space@masterwith:
+          root-reserve-mb: 6144
+          swap-size-mb: 10240
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+          build-mount-path: '/workdir'
+          
         
   
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4with:
+          fetch-depth: 0
+          
         
       - name: Clone Source Code
         working-directory: /workdir
