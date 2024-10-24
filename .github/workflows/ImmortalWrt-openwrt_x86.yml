@@ -15,14 +15,25 @@ on:
   workflow_dispatch:
 
 env:
+  MAKE_DEFCONFIG_SH: compile_script/step01_make_defconfig.sh
+  GENERATE_RELEASE_TAG_SH: compile_script/step02_generate_release_tag.sh
+  GENERATE_GIT_LOG_SH: compile_script/step03_generate_git_log.sh
+  UPDATE_GIT_LOG_SH:  compile_script/step06_update_git_log.sh
+  ORGANIZE_TAG_SH: compile_script/step07_organize_tag.sh
+
+
+  PLATFORMS_SH: compile_script/platforms.sh
+
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
+  UPLOAD_ARTIFACT: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
 jobs:
- build:
+ job_build:
     runs-on: ubuntu-22.04
+    name: build
     steps:
       - name: Initialization Environment
         run: |
