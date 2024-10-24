@@ -112,20 +112,20 @@ jobs:
 
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+          cp -r feeds_config/immortalwrt.feeds.conf.default openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
-      run: cp -r feeds_config/immortalwrt.feeds.conf.default openwrt/scripts/feeds
-           cd openwrt && ./scripts/feeds update -a
+      run: cd openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
     - name: Load custom configuration
-      run: cp -r config/immortalwrt_config/X86.config openwrt/.config
+      run: |
+        cp -r config/immortalwrt_config/X86.config openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
