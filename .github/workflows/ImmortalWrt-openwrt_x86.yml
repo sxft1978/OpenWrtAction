@@ -33,8 +33,8 @@ on:
     branches:
       - main
     paths:
-      - '.github/workflows/build-ImmortalWrt-cr6609.yml'
-      - 'cr660x.config'
+      - '.ImmortalWrt-openwrt_x86.yml'
+      - 'x86.config'
       
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
@@ -58,7 +58,7 @@ jobs:
           MATRIX: ${{github.event.inputs.devices}}
         run: |
           if [ -z $MATRIX ]; then
-            MATRIX='["cr660x"]'
+            MATRIX='["x86"]'
           fi
           echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
     outputs:
@@ -84,29 +84,45 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        docker rmi `docker images -q`
-        sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
-        sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc-s1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf swig
-        sudo -E apt-get -y autoremove --purge
-        sudo -E apt-get clean
-        sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        run: |
+          sudo timedatectl set-timezone "$TZ"
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
+          df -hT
+          
+    - name: Maximize Build Space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 6144
+          swap-size-mb: 10240
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+          build-mount-path: '/workdir'
 
-    - name: Clone source code
-      working-directory: /workdir
-      run: |
-        df -h
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-        # 利用挂载在 /mnt/ 的 14G 额外空间:
-        sudo mkdir -p -m 777 /mnt/openwrt/dl /mnt/openwrt/feeds 
-        ln -s /mnt/openwrt/dl /workdir/openwrt/dl
-        ln -s /mnt/openwrt/feeds /workdir/openwrt/feeds
-        # ln -s /mnt/openwrt/staging_dir ./staging_dir
-        df -h
+    - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+    - name: Install Packages
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo -E apt-get -qq update          
+          sudo -E apt-get -qq install $(curl -fsSL https://github.com/smallprogram/OpenWrtAction/raw/main/diy_script/immortalwrt_dependence)
+          # sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
+          # sudo -E apt-get -qq autoremove --purge
+          # sudo -E apt-get -qq clean
+          sudo timedatectl set-timezone "$TZ"
+          df -hT
+
+    - name: Clone Source Code
+        working-directory: /workdir
+        run: |
+          git clone https://github.com/immortalwrt/immortalwrt.git openwrt
+          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         
         
     - name: Load custom feeds
