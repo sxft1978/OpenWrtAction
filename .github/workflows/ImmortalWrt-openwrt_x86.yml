@@ -53,14 +53,19 @@ jobs:
       - name: Maximize Build Space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 6144
-          swap-size-mb: 10240
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
-          build-mount-path: '/workdir'
+           root-reserve-mb: 6144
+           swap-size-mb: 10240
+           remove-dotnet: true
+           remove-android: true
+           remove-haskell: true
+           remove-codeql: true
+           remove-docker-images: true
+           build-mount-path: /workdir
+           temp-reserve-mb: 100
+           overprovision-lvm: false
+           build-mount-path-ownership: runner:runner
+           pv-loop-path: /pv.img
+           tmp-pv-loop-path: /mnt/tmp-pv.img
 
       - name: Checkout
         uses: actions/checkout@v4
