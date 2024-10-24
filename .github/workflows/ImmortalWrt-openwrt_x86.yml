@@ -91,13 +91,11 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android /opt/ghc \
-        /usr/share/dotnet /usr/local/graalvm /usr/local/.ghcup \
-        /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/node_modules
-        sudo -E apt-get -y purge azure-cli* ghc* zulu* hhvm* llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* docker* dotnet* moby* snapd* || true
-        sudo -E apt-get update
+        sudo -E apt-get -qq updat
         sudo -E apt-get -qq install $(curl -fsSL https://github.com/smallprogram/OpenWrtAction/raw/main/diy_script/immortalwrt_dependence)
         sudo chown $USER:$GROUPS $GITHUB_WORKSPACE
+        sudo timedatectl set-timezone "$TZ"
+        df -hT
 
     - name: Checkout
       uses: actions/checkout@main
