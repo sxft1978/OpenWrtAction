@@ -97,6 +97,7 @@ jobs:
         sudo chown $USER:$GROUPS $GITHUB_WORKSPACE
         sudo timedatectl set-timezone "$TZ"
         df -hT
+        ls
 
     - name: Checkout
       uses: actions/checkout@main
