@@ -80,6 +80,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          
+      - name: Clone Source Code
+        working-directory: /workdir
+        run: |
+          git clone https://github.com/immortalwrt/immortalwrt.git openwrt
+          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
     
       - name: Install Packages
         env:
@@ -91,14 +97,7 @@ jobs:
           # sudo -E apt-get -qq autoremove --purge
           # sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "$TZ"
-          df -hT
-
-
-      - name: Clone Source Code
-        working-directory: /workdir
-        run: |
-          git clone https://github.com/immortalwrt/immortalwrt.git openwrt
-          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+          df -hT     
 
       - name: Load Custom Feeds
         run: |
@@ -131,18 +130,10 @@ jobs:
           find dl -size -1024c -exec rm -f {} \;
           df -hT
 
-      - name: Generate tools toolchain
-        id: compile_tools_toolchain
-        run: |
-          cd openwrt
-          make tools/compile -j1 V=s
-          make toolchain/compile -j1 V=s
-          make package/cleanup -j1 V=s
-          make target/compile -j1 V=s
-        
+          
 
-      - name: Generate Frimware ruby
-        id: compile_ruby
+      - name: Generate Frimware
+        id: compile
         run: |
            cd openwrt
            echo -e "$(nproc) thread compile"
