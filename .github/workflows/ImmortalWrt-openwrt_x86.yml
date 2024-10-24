@@ -86,9 +86,7 @@ jobs:
         echo "Free up disk space complete"
         echo "=============================================================================="
         df -hT
-        echo "=============================================================================="
-       
-    
+        echo "=============================================================================="  
       
     - name: Initialization environment
       env:
@@ -104,9 +102,7 @@ jobs:
           sudo chown $USER:$GROUPS /workdir
           
      - name: Checkout
-      uses: actions/checkout@main    
-     
-          
+      uses: actions/checkout@main 
                   
     - name: Clone source code
       working-directory: /workdir
