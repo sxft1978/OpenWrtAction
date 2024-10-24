@@ -87,8 +87,10 @@ jobs:
         echo "Free up disk space complete"
         echo "=============================================================================="
         df -hT
-        echo "=============================================================================="  
-    
+        echo "==============================================================================" 
+        
+    - name: Checkout
+      uses: actions/checkout@main
    
    
       
@@ -104,8 +106,7 @@ jobs:
           df -hT
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
-    - name: Checkout
-      uses: actions/checkout@main
+    
           
                   
     - name: Clone source code
