@@ -33,10 +33,6 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    
-   
-    
-    
 
     - name: Initialization environment
       env:
@@ -46,13 +42,13 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown -R $USER:$GROUPS /workdird
         sudo -E apt-get -qq update    
-          sudo -E apt-get -qq install $(curl -fsSL https://github.com/smallprogram/OpenWrtAction/raw/main/diy_script/immortalwrt_dependence)
-          sudo timedatectl set-timezone "$TZ"
-          df -hT
-          sudo mkdir -p openwrt
-          sudo mkdir -p download
-          sudo chown -R $USER:$GROUPS /workdir/openwrt
-          sudo chown -R $USER:$GROUPS /workdir/downloadf -hT
+        sudo -E apt-get -qq install $(curl -fsSL https://github.com/smallprogram/OpenWrtAction/raw/main/diy_script/immortalwrt_dependence)
+        sudo timedatectl set-timezone "$TZ"
+        df -hT
+        sudo mkdir -p openwrt
+        sudo mkdir -p download
+        sudo chown -R $USER:$GROUPS /workdir/openwrt
+        sudo chown -R $USER:$GROUPS /workdir/downloadf -hT
 
       - name: Checkout
       uses: actions/checkout@main
