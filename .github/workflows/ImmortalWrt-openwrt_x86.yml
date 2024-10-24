@@ -261,11 +261,46 @@ set -euo pipefail
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd openwrt/bin/targets/*/*
-        rm -rf packages
-        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        echo "status=success" >> $GITHUB_OUTPUT
-
+        # rm -rf $GITHUB_WORKSPACE/openwrt/bin
+  # mkdir -p $GITHUB_WORKSPACE/openwrt/bin
+  # mkdir -p $GITHUB_WORKSPACE/openwrt/bin/targets
+  # mkdir -p $GITHUB_WORKSPACE/openwrt/bin/targets/aa
+  # mkdir -p $GITHUB_WORKSPACE/openwrt/bin/targets/aa/bb
+  # cd $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
+  # mkdir -p feeds_packages
+  # firmware_path=$PWD
+  # dd if=/dev/zero of=openwrt_X86.txt bs=1M count=10
+  # if [[ "openwrt" == "lede" ]]; then
+  #     exit 200
+  # fi
+  
+  
+  cd $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
+  mkdir -p feeds_packages
+  firmware_path=$PWD
+  cd $GITHUB_WORKSPACE/openwrt/bin/packages/*/
+  mv * $firmware_path/feeds_packages
+  cd $firmware_path
+  
+  # zip -r buildinfo_openwrt_X86.zip feeds_packages packages sha256sums version.buildinfo config.buildinfo feeds.buildinfo
+  # rm -rf packages feeds_packages sha256sums version.buildinfo config.buildinfo feeds.buildinfo
+  
+  find . ! -name '*-*-*' -exec zip buildinfo_openwrt_X86.zip {} +
+  find . -mindepth 1 ! \( -name '*-*-*' -o -name '*.zip' \) -exec rm -rf {} +
+  
+  
+  if [[ "openwrt" == "lede" ]]; then
+      for file in openwrt-*; do
+          if [[ -f "$file" ]]; then
+              mv "$file" "${file/openwrt-/lean-}"
+          fi
+      done
+  fi
+  
+  ls
+  
+  echo "FIRMWARE=$firmware_path" >> $GITHUB_OUTPUT
+  echo "status=success" >> $GITHUB_OUTPUT
     - name: Upload firmware directory
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
