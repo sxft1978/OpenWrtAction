@@ -45,14 +45,10 @@ jobs:
     steps:
       - name: Initialization Environment
         run: |
-          sudo timedatectl set-timezone "$TZ"
-          sudo mkdir -p /workdir
-          sudo chown -R $USER:$GROUPS /workdir
-          cd /workdir
-          sudo mkdir -p output
-          sudo chown -R $USER:$GROUPS /workdir/output
-          ln -sf /workdir/output $GITHUB_WORKSPACE/output
-          df -hT
+           sudo timedatectl set-timezone "$TZ"
+           sudo mkdir -p /workdir
+           sudo chown -R $USER:$GROUPS /workdir
+           df -hT
 
       - name: Maximize Build Space
         uses: easimon/maximize-build-space@master
