@@ -51,6 +51,17 @@ jobs:
           sudo mkdir -p download
           sudo chown -R $USER:$GROUPS /workdir/openwrt
           sudo chown -R $USER:$GROUPS /workdir/downloadf -hT
+    - name: Maximize Build Space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 6144
+          swap-size-mb: 10240
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+          build-mount-path: '/workdir'
         
 
     - name: Clone source code
