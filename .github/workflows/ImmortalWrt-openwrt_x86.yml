@@ -41,8 +41,6 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |        
           sudo timedatectl set-timezone "$TZ"
-          sudo mkdir -p /workdir
-          sudo chown -R $USER:$GROUPS /workdir
           df -hT
           sudo -E apt-get -qq update    
           sudo -E apt-get -qq install $(curl -fsSL https://github.com/smallprogram/OpenWrtAction/raw/main/diy_script/immortalwrt_dependence)
